@@ -1,8 +1,9 @@
-// generatorっぽい関数
+// 自前ジェネレーター
 
 function evens(n) {
     let current = -2
     return {
+        [Symbol.iterator]() { return this },
         next: () => {
             if (current + 2 <= n) {
                 current += 2
@@ -22,11 +23,8 @@ console.log(gen.next())
 console.log(gen.next())
 console.log(gen.next())
 
-const gen2 = evens(8)
-let item = gen2.next()
-while (!item.done) {
-    console.log(item.value)
-    item = gen2.next()
+for (const n of evens(8)) {
+    console.log(n)
 }
 
 console.log("ジェネレーター")
